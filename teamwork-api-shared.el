@@ -46,6 +46,34 @@
 (defconst teamwork-api-endpoint "https://%s.teamwork.com/")
 
 
+;; Sending requests
+
+(defun teamwork-api--get (action &optional args)
+  "Perform a HTTP GET request to ACTION with optional ARGS."
+  (let* ((http-auth-token (teamwork-api--create-auth teamwork-api-key))
+         (url-request-method "GET")
+         (url (format "%s%s.json" (teamwork-api--generate-user-uri teamwork-api-username) action))
+         (url-request-extra-headers
+          `(("Authorization" . ,(concat "Basic " http-auth-token)))))
+    (with-current-buffer (url-retrieve-synchronously url)
+      (goto-char (point-min))
+      (goto-char url-http-end-of-headers)
+      (prog1 (json-read)
+        (kill-buffer)))))
+
+(defun teamwork-api--post (action &optional args)
+  "Perform a HTTP POST request to ACTION with optional ARGS."
+  (let* ((http-auth-token (teamwork-api--create-auth teamwork-api-key))
+         (url-request-method "POST")
+         (url-request-data args)
+         (url (format "%s%s.json" (teamwork-api--generate-user-uri teamwork-api-username) action))
+         (url-request-extra-headers
+          `(("Authorization" . ,(concat "Basic " http-auth-token)))))
+    (with-current-buffer (url-retrieve-synchronously url)
+      (goto-char (point-min))
+      (goto-char url-http-end-of-headers)
+      (prog1 (json-read)
+        (kill-buffer)))))
 
 ;; URI generation
 
