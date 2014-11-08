@@ -9,6 +9,13 @@
 ;; Setup test paths
 (setq test-directory (file-name-directory (directory-file-name (file-name-directory load-file-name))))
 
+(defun read-fixture-as-json (file)
+  "Reads FILE from the fixtures directory and returns it as parsed JSON."
+  (let* ((file-path (concat test-directory "/fixtures/" file))
+         (file-contents (with-temp-buffer
+                          (insert-file-contents file-path)
+                          (buffer-string))))
+    (json-read-from-string file-contents)))
 
 (defun url-retrieve-user-fixture (file)
   "Reads FILE from the fixtures directory and returns it as a fake HTTP response."

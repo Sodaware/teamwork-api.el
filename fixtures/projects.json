@@ -1,0 +1,31 @@
+{
+    "STATUS": "OK",
+    "projects": [
+        {
+            "company": {
+                "name": "Demo 1 Company",
+                "is-owner": "1",
+                "id": "999"
+            },
+            "starred": false,
+            "name": "Demo Project",
+            "show-announcement": false,
+            "announcement": "",
+            "description": "",
+            "status": "active",
+            "isProjectAdmin": false,
+            "created-on": "2013-12-04T19:11:44Z",
+            "category": {
+                "name": "",
+                "id": ""
+            },
+            "start-page": "projectoverview",
+            "startDate": "2013-12-04T00:00:00Z",
+            "logo": "http://demo1company.teamwork.com/images/logo.jpg",
+            "notifyeveryone": false,
+            "id": "999",
+            "last-changed-on": "2014-03-18T11:20:49Z",
+            "endDate": "2014-03-13T00:00:00Z"
+        }
+    ]
+}
