@@ -1,11 +1,11 @@
-;;; teamwork-api.el --- Library for working with teamwork.com
+;;; teamwork-api-shared.el --- Functionality shared between submodules
 
 ;; Copyright (C) 2014 Phil Newton
 
 ;; Author: Phil Newton <phil@sodaware.net>
 ;; Version: 0.1.0
 ;; Package-Requires: ((json "1.2"))
-;; Keywords: teamwork
+;; Keywords: bter crypto bitcoin litecoin dogecoin
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -22,14 +22,28 @@
 
 ;;; Commentary:
 
-;; For more information on the API, see the teamwork developer site:
-;; http://developer.teamwork.com/introduction
+;; This file contains various bits of code used throughout the teamwork api
+;; client.  Mostly stuff to do with authentication, building uri's and fetching
+;; json.
 
 ;;; Code:
 
 ;; Dependencies
 
-(require teamwork-api-shared)
+(require 'json)
+(require 'url-http)
 
-(provide 'teamwork-api)
-;;; teamwork-api.el ends here
+(defvar url-http-end-of-headers)
+
+;; Configuration
+
+(defconst teamwork-api-endpoint "https://%s.teamwork.com/")
+
+
+(defun teamwork-api--generate-user-uri (username)
+  "Generate an api domain for USERNAME."
+  (format teamwork-api-endpoint username))
+
+
+(provide 'teamwork-api-shared)
+;;; teamwork-api-shared.el ends here
