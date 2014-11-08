@@ -37,12 +37,35 @@
 
 ;; Configuration
 
+(defvar teamwork-api-username nil
+  "Your Teamwork.com username.")
+
+(defvar teamwork-api-key nil
+  "Your Teamwork.com api key.")
+
 (defconst teamwork-api-endpoint "https://%s.teamwork.com/")
 
+
+
+;; URI generation
 
 (defun teamwork-api--generate-user-uri (username)
   "Generate an api domain for USERNAME."
   (format teamwork-api-endpoint username))
+
+(defun teamwork-api--build-query (query-vars)
+  "Build a query string using QUERY-VARS.
+
+QUERY-VARS should be a list of symbols and their corresponding
+values."
+  (if (null query-vars)
+      ""
+    (let (query-string)
+      (dolist (var query-vars)
+        (if (symbolp var)
+            (setq query-string (concat query-string (substring (symbol-name var) 1) "="))
+          (setq query-string (format "%s%s&" query-string var))))
+      (substring query-string 0 -1))))
 
 
 ;; Authorization
