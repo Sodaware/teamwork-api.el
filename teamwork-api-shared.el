@@ -45,5 +45,12 @@
   (format teamwork-api-endpoint username))
 
 
+;; Authorization
+
+(defun teamwork-api--create-auth (api-key)
+  "Use API-KEY to create a HTTP authorization token."
+  (base64-encode-string (concat api-key ":x") t))
+
+
 (provide 'teamwork-api-shared)
 ;;; teamwork-api-shared.el ends here
