@@ -40,7 +40,26 @@
 
 (defun teamwork-api-get-project (project)
   "Retrieve data for PROJECT."
-  (assoc-default 'project (teamwork-api--get (format "projects/%s" project))))
+  (let ((project (assoc-default 'project (teamwork-api--get (format "projects/%s" project)))))
+    (teamwork-api--format-project project)))
+
+
+;; Data Helpers
+
+;; [todo] - Include company information
+;; [todo] - Include category information
+(defun teamwork-api--format-project (project)
+  "Convert PROJECT from a JSON object."
+  `((:id . ,(assoc-default 'id project))
+    (,:name . ,(assoc-default 'name project))
+    (,:description . ,(assoc-default 'description project))
+    (,:status . ,(assoc-default 'status project))
+    (,:start-page . ,(assoc-default 'start-page project))
+    (,:logo . ,(assoc-default 'logo project))
+    (,:start-date . ,(assoc-default 'startDate project))
+    (,:end-date . ,(assoc-default 'endDate project))
+    (,:last-changed . ,(assoc-default 'last-changed-on project))
+    (,:starred . ,(assoc-default 'starred project))))
 
 (provide 'teamwork-api-projects)
 ;;; teamwork-api-projects.el ends here

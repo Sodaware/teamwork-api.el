@@ -10,4 +10,4 @@
   (with-mock
    (mock (teamwork-api--get "projects/test") => (read-fixture-as-json "projects-test.json"))
    (let ((project (teamwork-api-get-project "test")))
-     (should (string= "demo" (assoc-default 'name project))))))
+     (should (string= "demo" (assoc-default :name project))))))
