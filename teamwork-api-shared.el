@@ -52,7 +52,7 @@
   "Perform a HTTP GET request to ACTION with optional ARGS."
   (let* ((http-auth-token (teamwork-api--create-auth teamwork-api-key))
          (url-request-method "GET")
-         (url (format "%s%s.json" (teamwork-api--generate-user-uri teamwork-api-username) action))
+         (url (teamwork-api--generate-endpoint action))
          (url-request-extra-headers
           `(("Authorization" . ,(concat "Basic " http-auth-token)))))
     (with-current-buffer (url-retrieve-synchronously url)
@@ -81,6 +81,13 @@
   "Generate an api domain for USERNAME."
   (format teamwork-api-endpoint username))
 
+(defun teamwork-api--generate-endpoint (action &optional query-vars)
+  "Generate a URI endpoint for ACTION using the current user."
+  (format "%s%s.json%s"
+          (teamwork-api--generate-user-uri teamwork-api-username)
+          action
+          (teamwork-api--build-query query-vars)))
+
 (defun teamwork-api--build-query (query-vars)
   "Build a query string using QUERY-VARS.
 
@@ -93,7 +100,7 @@ values."
         (if (symbolp var)
             (setq query-string (concat query-string (substring (symbol-name var) 1) "="))
           (setq query-string (format "%s%s&" query-string var))))
-      (substring query-string 0 -1))))
+      (concat "?" (substring query-string 0 -1)))))
 
 
 ;; Authorization
