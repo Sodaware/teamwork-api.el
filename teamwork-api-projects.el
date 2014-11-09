@@ -43,6 +43,11 @@
   (let ((project (assoc-default 'project (teamwork-api--get (format "projects/%s" project)))))
     (teamwork-api--format-project project)))
 
+(defun teamwork-api-get-starred-projects ()
+  "Retrieve a list of all starred projects for the current user."
+  (let* ((response (teamwork-api--get "projects/starred")))
+    (assoc-default 'projects response)))
+
 
 ;; Data Helpers
 
