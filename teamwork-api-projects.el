@@ -38,6 +38,9 @@
   (let* ((response (teamwork-api--get "projects")))
     (assoc-default 'projects response)))
 
+(defun teamwork-api-get-project (project)
+  "Retrieve data for PROJECT."
+  (assoc-default 'project (teamwork-api--get (format "projects/%s" project))))
 
 (provide 'teamwork-api-projects)
 ;;; teamwork-api-projects.el ends here

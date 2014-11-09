@@ -1,0 +1,27 @@
+{
+    "project": {
+        "company": {
+            "name": "Demo 1 Company",
+            "id": "999"
+        },
+        "starred": false,
+        "name": "demo",
+        "show-announcement": false,
+        "announcement": "",
+        "description": "A demo project",
+        "status": "active",
+        "created-on": "2014-03-28T15:24:22Z",
+        "category": {
+            "name": "",
+            "id": ""
+        },
+        "start-page": "projectoverview",
+        "logo": "http://demo1company.teamwork.com/images/logo.jpg",
+        "startDate": "",
+        "notifyeveryone": false,
+        "id": "999",
+        "last-changed-on": "2014-04-01T14:29:32Z",
+        "endDate": ""
+    },
+    "STATUS": "OK"
+}
