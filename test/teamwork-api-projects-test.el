@@ -27,3 +27,7 @@
   (with-mock
    (mock (teamwork-api--put "projects/1234/unstar") => t)
    (teamwork-api-unstar-project 1234)))
+
+(ert-deftest teamwork-api-projects-test/project-id-must-be-number ()
+  (should-error (teamwork-api-star-project "not-a-number"))
+  (should-error (teamwork-api-unstar-project "not-a-number")))
