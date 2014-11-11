@@ -34,3 +34,7 @@
       (insert (concat "HTTP/1.0 200 OK\n\n" file-contents))
       (set (make-local-variable 'url-http-end-of-headers) 18)
       (current-buffer))))
+
+(defun should-key-equal (key value object)
+  "Check that KEY equals VALUE for OBJECT."
+  (should (equal value (assoc-default key object))))
