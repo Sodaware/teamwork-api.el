@@ -44,6 +44,7 @@
   "Your Teamwork.com api key.")
 
 (defconst teamwork-api-endpoint "https://%s.teamwork.com/")
+(defconst teamwork-api-authentication-endpoint "https://authenticate.teamworkpm.net/")
 
 
 ;; Sending requests
