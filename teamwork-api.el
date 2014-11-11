@@ -29,7 +29,8 @@
 
 ;; Dependencies
 
-(require teamwork-api-shared)
+(require 'teamwork-api-account)
+(require 'teamwork-api-projects)
 
 (provide 'teamwork-api)
 ;;; teamwork-api.el ends here
