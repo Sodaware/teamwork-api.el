@@ -35,13 +35,21 @@
 
 
 
+
 ;; API Methods
 
 (defun teamwork-api-get-account-details ()
-  "Get details for the account connected to the current API key."
+  "Get details for the current account and API key."
   (let ((response (teamwork-api--get "account")))
     (when (string= "OK" (assoc-default 'STATUS response))
       (teamwork-api--format-account (assoc-default 'account response)))))
+
+(defun teamwork-api-get-authenticate-details ()
+  "Get details for the user connected to the current API key."
+  (let* ((url (concat teamwork-api-authentication-endpoint "authenticate.json"))
+         (response (teamwork-api--get-url-as-json url)))
+    (when (string= "OK" (assoc-default 'STATUS response))
+      (teamwork-api--format-authentication (assoc-default 'account response)))))
 
 
 ;; Data Helpers
@@ -64,6 +72,31 @@
     (:created-at . ,(assoc-default 'created-at account))
     (:date-signed-up . ,(assoc-default 'datesignedup account))
     (:cache-uuid . ,(assoc-default 'cacheUUID account))))
+
+(defun teamwork-api--format-authentication (account)
+  "Convert ACCOUNT from a JSON object."
+  `((:id . ,(string-to-number (assoc-default 'id account)))
+    (:user-id . ,(string-to-number (assoc-default 'userId account)))
+    (:first-name . ,(assoc-default 'firstname account))
+    (:last-name . ,(assoc-default 'lastname account))
+    (:avatar-url . ,(assoc-default 'avatar-url account))
+    (:start-on-sundays . ,(not (eq :json-false (assoc-default 'startonsundays account))))
+    (:name . ,(assoc-default 'name account))
+    (:code . ,(assoc-default 'code account))
+    (:url . ,(assoc-default 'URL account))
+    (:logo . ,(assoc-default 'logo account))
+    (:company-id . ,(string-to-number (assoc-default 'companyid account)))
+    (:company-name . ,(assoc-default 'companyname account))
+    (:language . ,(assoc-default 'lang account))
+    (:ssl-enabled . ,(not (eq :json-false (assoc-default 'ssl-enabled account))))
+    (:require-https . ,(not (eq :json-false (assoc-default 'requirehttps account))))
+    (:user-is-owner-company-member . ,(not (eq :json-false (assoc-default 'userIsMemberOfOwnerCompany account))))
+    (:user-is-admin . ,(not (eq :json-false (assoc-default 'userIsAdmin account))))
+    (:can-add-projects . ,(string= "1" (assoc-default 'canaddprojects account)))
+    (:can-manage-people . ,(string= "1" (assoc-default 'canManagePeople account)))
+    (:time-format . ,(assoc-default 'timeFormat account))
+    (:date-format . ,(assoc-default 'dateFormat account))
+    (:date-seperator . ,(assoc-default 'dateSeperator account))))
 
 (provide 'teamwork-api-account)
 ;;; teamwork-api-account.el ends here
