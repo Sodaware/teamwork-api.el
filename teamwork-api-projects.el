@@ -32,16 +32,21 @@
 
 (require 'teamwork-api-shared)
 
+(defun teamwork-api-create-project (project)
+  "Use data in PROJECT to create a new project."
+  (teamwork-api--post "projects" (:project . project)))
 
 (defun teamwork-api-get-projects ()
   "Retrieve a list of all projects for the current user."
   (let* ((response (teamwork-api--get "projects")))
     (assoc-default 'projects response)))
 
-(defun teamwork-api-get-project (project)
+(defun teamwork-api-get-project (project-id)
   "Retrieve data for PROJECT."
-  (let ((project (assoc-default 'project (teamwork-api--get (format "projects/%s" project)))))
-    (teamwork-api--format-project project)))
+  (unless (numberp project-id)
+    (error "Invalid value %s for PROJECT-ID" project-id))
+  (teamwork-api--format-project
+   (assoc-default 'project (teamwork-api--get (format "projects/%s" project-id)))))
 
 (defun teamwork-api-get-starred-projects ()
   "Retrieve a list of all starred projects for the current user."
