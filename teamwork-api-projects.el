@@ -48,6 +48,13 @@
   (let* ((response (teamwork-api--get "projects/starred")))
     (assoc-default 'projects response)))
 
+(defun teamwork-api-star-project (project-id)
+  "Mark PROJECT-ID as starred."
+  (teamwork-api--put (format "projects/%s/star" project-id)))
+
+(defun teamwork-api-unstar-project (project-id)
+  "Remove star from PROJECT-ID."
+  (teamwork-api--put (format "projects/%s/unstar" project-id)))
 
 ;; Data Helpers
 
