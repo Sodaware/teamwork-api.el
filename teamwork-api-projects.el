@@ -75,7 +75,7 @@
     (,:start-date . ,(assoc-default 'startDate project))
     (,:end-date . ,(assoc-default 'endDate project))
     (,:last-changed . ,(assoc-default 'last-changed-on project))
-    (,:starred . ,(assoc-default 'starred project))))
+    (,:starred . ,(not (eq :json-false (assoc-default 'starred project))))))
 
 (provide 'teamwork-api-projects)
 ;;; teamwork-api-projects.el ends here
