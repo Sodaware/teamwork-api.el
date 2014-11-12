@@ -100,10 +100,3 @@
 
 (provide 'teamwork-api-account)
 ;;; teamwork-api-account.el ends here
-
-
-
-
-
-
-
