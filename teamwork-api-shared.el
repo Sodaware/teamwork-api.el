@@ -53,7 +53,7 @@
   "Perform a HTTP GET request to ACTION with optional ARGS."  
   (let* ((http-auth-token (teamwork-api--create-auth teamwork-api-key))
          (url-request-method "GET")
-         (url (teamwork-api--generate-endpoint action))
+         (url (teamwork-api--generate-endpoint action args))
          (url-request-extra-headers
           `(("Authorization" . ,(concat "Basic " http-auth-token)))))
     (teamwork-api--get-url-as-json url)))
