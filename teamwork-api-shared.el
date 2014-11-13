@@ -120,10 +120,13 @@ values."
   (if (null query-vars)
       ""
     (let (query-string)
-      (dolist (var query-vars)
-        (if (symbolp var)
-            (setq query-string (concat query-string (substring (symbol-name var) 1) "="))
-          (setq query-string (format "%s%s&" query-string var))))
+      (dolist (pair query-vars)
+        (let ((name (car pair))
+              (value (cdr pair)))
+          (setq query-string (concat query-string (substring (symbol-name name) 1)))
+          (unless (null value)
+            (setq query-string (format "%s=%s" query-string value))))
+        (setq query-string (concat query-string "&")))
       (concat "?" (substring query-string 0 -1)))))
 
 

@@ -13,7 +13,7 @@
 
 (ert-deftest teamwork-api-shared-test/can-generate-endpoint-with-query-vars ()
   (let ((teamwork-api-username "test_user")
-        (query-vars (list :arg "value")))    
+        (query-vars '((:arg . "value"))))    
     (should (string= "https://test_user.teamwork.com/endpoint.json?arg=value"
                      (teamwork-api--generate-endpoint "endpoint" query-vars)))))
 
@@ -22,11 +22,16 @@
 
 (ert-deftest teamwork-api-shared-test/can-build-query-with-valid-values ()
   (should (string= "?string-param=value&number-param=1234"
-                   (teamwork-api--build-query (list :string-param "value"
-                                                    :number-param 1234)))))
+                   (teamwork-api--build-query '((:string-param . "value")
+                                                (:number-param . 1234))))))
 
 (ert-deftest teamwork-api-shared-test/can-build-query-with-empty-list ()
   (should (string= "" (teamwork-api--build-query nil))))
+
+(ert-deftest teamwork-api-shared-test/can-build-query-with-nil-values ()
+  (should (string= "?string-param&number-param"
+                   (teamwork-api--build-query '((:string-param . nil)
+                                                (:number-param . nil))))))
 
 (ert-deftest teamwork-api-shared-test/can-make-get-request ()
   (let ((teamwork-api-username "test_user")
