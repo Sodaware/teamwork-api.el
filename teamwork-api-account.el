@@ -3,9 +3,6 @@
 ;; Copyright (C) 2014 Phil Newton
 
 ;; Author: Phil Newton <phil@sodaware.net>
-;; Version: 0.1.0
-;; Package-Requires: ((json "1.2"))
-;; Keywords: bter crypto bitcoin litecoin dogecoin
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
