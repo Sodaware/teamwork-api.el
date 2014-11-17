@@ -137,5 +137,29 @@ values."
   (base64-encode-string (concat api-key ":x") t))
 
 
+;; JSON response helpers
+
+(defun teamwork-api--create-pair (key field &optional object conversion)
+  "Create a new pair with KEY as the value of FIELD.
+
+If OBJECT is not set, will attempt to use global *RESPONSE* variable.  If 
+CONVERSION is a valid function, it will be used to convert to the field's value."  
+  (let* ((object (if (boundp '*response*) *response* object))
+         (value (assoc-default field object)))
+    
+    ;; Check object is not null
+    (when (null object)
+      (error "OBJECT must be set if *RESPONSE* is NIL."))
+    
+    ;; If conversion function specified, convert the value first
+    (when (not (null conversion))
+      (unless (functionp conversion)
+        (error "CONVERSION must be a valid function"))
+      (setq value (funcall conversion value)))
+
+    ;; Return the value as a dotted pair
+    `(,key . ,value)))
+
+
 (provide 'teamwork-api-shared)
 ;;; teamwork-api-shared.el ends here

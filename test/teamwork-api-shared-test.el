@@ -48,3 +48,33 @@
     (with-mock
      (mock (url-retrieve-synchronously teamwork-uri) => (url-retrieve-user-fixture "test.json"))
      (teamwork-api--post "test"))))
+
+
+;; Pair creation tests
+
+(ert-deftest teamwork-api-shared-test/can-create-pair ()
+  (let* ((json-response (read-fixture-as-json "account.json"))
+         (account (assoc-default 'account json-response))
+         (test-value (teamwork-api--create-pair :company-name 'companyname account)))
+    (should (equal :company-name (car test-value)))
+    (should (string= "Owner Company Name" (cdr test-value)))))
+
+(ert-deftest teamwork-api-shared-test/can-create-pair-with-converted-value ()
+  (let* ((json-response (read-fixture-as-json "account.json"))
+         (account (assoc-default 'account json-response))
+         (test-value (teamwork-api--create-pair :company-id 'companyid account 'string-to-number)))
+    (should (equal :company-id (car test-value)))
+    (should (eq 1 (cdr test-value)))))
+
+(ert-deftest teamwork-api-shared-test/can-use-global-value-to-create-pair ()
+  (let* ((json-response (read-fixture-as-json "account.json"))
+         (*response* (assoc-default 'account json-response))
+         (test-value (teamwork-api--create-pair :company-name 'companyname)))
+    (should (string= "Owner Company Name" (cdr test-value)))))
+
+(ert-deftest teamwork-api-shared-test/create-pair-throws-error-with-invalid-arguments ()
+  (let* ((json-response (read-fixture-as-json "account.json"))
+         (account (assoc-default 'account json-response))
+         (*response* nil))
+    (should-error (teamwork-api--create-pair :symbol 'key account))
+    (should-error (teamwork-api--create-pair :symbol 'key account 'some-invalid-function))))
