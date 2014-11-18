@@ -28,11 +28,6 @@
 (require 'teamwork-api-shared)
 
 
-;; Constants and Configuration
-
-
-
-
 ;; API Methods
 
 (defun teamwork-api-get-account-details ()
