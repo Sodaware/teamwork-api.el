@@ -83,6 +83,20 @@
       (prog1 (json-read)
         (kill-buffer)))))
 
+(defun teamwork-api--delete (action &optional args)
+  "Perform a HTTP DELETE request to ACTION with optional ARGS."
+  (let* ((http-auth-token (teamwork-api--create-auth teamwork-api-key))
+         (url-request-method "DELETE")
+         (url-request-data args)
+         (url (format "%s%s.json" (teamwork-api--generate-user-uri teamwork-api-username) action))
+         (url-request-extra-headers
+          `(("Authorization" . ,(concat "Basic " http-auth-token)))))
+    (with-current-buffer (url-retrieve-synchronously url)
+      (goto-char (point-min))
+      (goto-char url-http-end-of-headers)
+      (prog1 (json-read)
+        (kill-buffer)))))
+
 (defun teamwork-api--get-url-as-json (url)
   "Perform a HTTP GET request to URL and return as a parsed JSON object."
   (let* ((http-auth-token (teamwork-api--create-auth teamwork-api-key))

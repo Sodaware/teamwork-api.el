@@ -51,6 +51,10 @@
     (mapcar 'teamwork-api--format-activity
             (assoc-default 'activity response))))
 
+(defun teamwork-api-delete-activity (id)
+  "Delete activity log entry referenced by ID."
+  (teamwork-api--delete (format "activity/%s" id)))
+
 
 ;; Internal helpers
 
