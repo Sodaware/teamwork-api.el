@@ -43,6 +43,14 @@
     (mapcar 'teamwork-api--format-activity
             (assoc-default 'activity response))))
 
+(defun teamwork-api-get-project-activity (project-id &optional count)
+  "Get all activity for PROJECT-ID, optionally limited to COUNT."
+  (let* ((count (if (null count) 60 count))
+         (response (teamwork-api--get (format "%s/latestActivity" project-id)
+                                      `((:maxItems . ,count)))))
+    (mapcar 'teamwork-api--format-activity
+            (assoc-default 'activity response))))
+
 
 ;; Internal helpers
 
