@@ -33,6 +33,13 @@
 
 ;; API Methods
 
+(defun teamwork-api-get-recent-comments (resource resource-id)
+  )
+
+
+(defun teamwork-api--get-resource-name (resource)
+  "Get the teamwork name for RESOURCE symbol."
+  (replace-regexp-in-string ":" "" (downcase (format "%s" resource))))
 
 (provide 'teamwork-api-comments)
 ;;; teamwork-api-comments.el ends here
