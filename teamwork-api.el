@@ -30,6 +30,7 @@
 ;; Dependencies
 
 (require 'teamwork-api-account)
+(require 'teamwork-api-activity)
 (require 'teamwork-api-projects)
 
 (provide 'teamwork-api)
