@@ -172,5 +172,16 @@ CONVERSION is a valid function, it will be used to convert to the field's value.
     `(,key . ,value)))
 
 
+;; HTTP helpers
+
+(defun teamwork-api--parse-http-headers (headers)
+  "Parse HTTP HEADERS into an assoc list."
+  (let ((header-list (split-string headers "\n")))
+    (mapcar (lambda (header)
+              (let ((parts (split-string header ": ")))
+                `(,(car parts) . ,(cadr parts))))
+            header-list)))
+
+
 (provide 'teamwork-api-shared)
 ;;; teamwork-api-shared.el ends here

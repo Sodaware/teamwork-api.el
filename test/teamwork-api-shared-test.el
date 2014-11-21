@@ -78,3 +78,11 @@
          (*response* nil))
     (should-error (teamwork-api--create-pair :symbol 'key account))
     (should-error (teamwork-api--create-pair :symbol 'key account 'some-invalid-function))))
+
+
+;; HTTP Helper tests
+
+(ert-deftest teamwork-api-shared-test/can-parse-http-headers ()
+  (let* ((headers "HTTP/1.1 200 OK\nContent-Type: text/html\nConnection: keep-alive\n")
+         (parsed-headers (teamwork-api--parse-http-headers headers)))
+    (should (string= "text/html" (assoc-default "Content-Type" parsed-headers)))))
