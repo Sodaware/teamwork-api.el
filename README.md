@@ -11,9 +11,20 @@ This library wraps API functionality, but is not meant as a client
 As always, this is work in process!
 
 
+## Running Tests
+
+To run unit tests you'll need [Cask](https://github.com/cask/cask) installed.
+
+The following command will run all tests:
+
+```bash
+cask exec ert-runner
+```
+
+
 ## Licence
 
-Copyright (C) 2014 Phil Newton
+Copyright (C) 2014-2016 Phil Newton
 
 This program is free software; you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
